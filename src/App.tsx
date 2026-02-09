@@ -18,7 +18,7 @@ export default function App() {
         <Logo />
       </Container>
       <Container>
-        <Menu />
+        <Menu icon={<></>} />
       </Container>
       <Container>
         <TimerDisplay />
