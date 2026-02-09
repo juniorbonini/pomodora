@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: var(--primary);
+  color: var(--gray-900);
+  transtion: all 0.2s ease-in-out;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+}
+.link:hover {
+  filter: brightness(50%);
+}
+
+.link svg {
+  width: 2.4rem;
+  height: 2.4rem;
+}
