@@ -1,3 +1,5 @@
+import { PlayCircle, StopCircle } from "lucide-react";
+import { Button } from "./components/Button";
 import { Container } from "./components/Container";
 import { Cycles } from "./components/Cycles";
 import { Input } from "./components/Input";
@@ -19,13 +21,16 @@ export default function App() {
       </Container>
       <Container>
         <TimerDisplay />
-
       </Container>
       <Container>
-          <Input label="task" type="text" id="taskName" placeholder="Task" />
+        <Input label="task" type="text" id="taskName" placeholder="Task" />
       </Container>
       <Container>
         <Cycles />
+      </Container>
+      <Container>
+        <Button color="green" icon={<PlayCircle />} />
+        <Button color="red" icon={<StopCircle />} />
       </Container>
     </>
   );
