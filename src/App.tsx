@@ -9,6 +9,7 @@ import { TimerDisplay } from "./components/TimerDisplay";
 
 import "./theme/global.css";
 import "./theme/theme.css";
+import { Footer } from "./components/Footer";
 
 export default function App() {
   return (
@@ -31,6 +32,9 @@ export default function App() {
       <Container>
         <Button color="green" icon={<PlayCircle />} />
         <Button color="red" icon={<StopCircle />} />
+      </Container>
+      <Container>
+        <Footer />
       </Container>
     </>
   );
