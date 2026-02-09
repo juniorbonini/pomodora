@@ -1,5 +1,4 @@
 :root {
-   🎭 Tons de Cinza (cores dinâmicas que mudam entre claro/es
   --gray-100: #e6e9f0;
   --gray-200: #cdd3e1;
   --gray-300: #aab3cc;
@@ -21,10 +20,9 @@
   --error: #991b1b;
   --success: #22c55e;
   --warning: #eab308;
-
 }
 
-:root[data-theme='light'] {
+:root[data-theme="light"] {
   --gray-100: #0a0f1a;
   --gray-200: #181f2e;
   --gray-300: #272f43;

@@ -4,7 +4,7 @@ export const Logo = () => {
   return (
     <div className={styles.container}>
       <a href="#" className={styles.link}>
-        <TimerIcon />
+        <TimerIcon size={65} />
         <span>Pomodora</span>
       </a>
     </div>

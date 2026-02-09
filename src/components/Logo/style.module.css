@@ -16,14 +16,9 @@
   font-size: 4.2rem;
   text-decoration: none;
   color: var(--primary);
-  transtion: all 0.2s ease-in-out;
+  transition: all 0.3s ease;
 }
 
 .link:hover {
-  filter: brightness(50%);
-}
-
-.link svg {
-  width: 6.5rem;
-  heigth: 6.5rem;
+  color: var(--primary-light);
 }
