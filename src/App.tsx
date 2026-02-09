@@ -1,6 +1,8 @@
 import { Container } from "./components/Container";
+import { Input } from "./components/Input";
 import { Logo } from "./components/Logo";
 import { Menu } from "./components/Menu";
+import { TimerDisplay } from "./components/TimerDisplay";
 
 import "./theme/global.css";
 import "./theme/theme.css";
@@ -13,6 +15,10 @@ export default function App() {
       </Container>
       <Container>
         <Menu />
+      </Container>
+      <Container>
+        <TimerDisplay />
+        <Input label="task" type="text" id="taskName" placeholder="Task" />
       </Container>
     </>
   );
