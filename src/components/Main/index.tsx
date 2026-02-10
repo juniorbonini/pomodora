@@ -3,6 +3,7 @@ import { Container } from "@/components/Container";
 import { Logo } from "@/components/Logo";
 import { Menu } from "@/components/Menu";
 import { Footer } from "@/components/Footer";
+import { TimerDisplay } from "../TimerDisplay";
 
 export const Main = ({ children }: MainProps) => {
   return (
@@ -12,6 +13,9 @@ export const Main = ({ children }: MainProps) => {
       </Container>
       <Container>
         <Menu icon />
+      </Container>
+      <Container>
+        <TimerDisplay />
       </Container>
 
       {children}
