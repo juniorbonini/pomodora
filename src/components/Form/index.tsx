@@ -1,7 +1,9 @@
 import { PlayCircle } from "lucide-react";
-import { Button } from "../Button";
-import { Cycles } from "../Cycles";
-import { Input } from "../Input";
+import { Button } from "@/components/Button";
+import { Cycles } from "@/components/Cycles";
+import { Input } from "@/components/Input";
+import { Container } from "@/components/Container";
+import { TimerDisplay } from "@/components/TimerDisplay";
 
 export const Form = () => {
   return (
@@ -18,6 +20,9 @@ export const Form = () => {
       <div className="formRow">
         <span>Foque durante 25 min em Estudar React.Js</span>
       </div>
+      <Container>
+        <TimerDisplay />
+      </Container>
 
       <div className="formRow">
         <Cycles />
