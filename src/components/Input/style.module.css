@@ -23,7 +23,8 @@
 }
 
 .input:disabled {
-  border-bottom: 0.2rem solid var(--gray-600);
+  border: 0.2rem solid var(--gray-600);
+  border-radius: 0.8rem;
   color: var(--gray-300);
 }
 .container {

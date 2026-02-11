@@ -68,6 +68,7 @@ export const Form = () => {
           id="tarefa"
           placeholder="Digite o nome da tarefa"
           ref={inputValue}
+          disabled={!!state.activeTask}
         />
       </div>
 
