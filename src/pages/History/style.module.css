@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.6rem;
+}
+
+.button {
+  padding: 1.2rem;
+  border: none;
+  background: var(--error);
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  filter: brightness(70%);
+}
+.button svg {
+  color: var(--gray-100);
+}
+
+.table {
+  border-radius: 0.8rem;
+  overflow-x: auto;
+}
+
+.table table {
+  width: 100%;
+  min-width: 64rem;
+  font-size: 1.6rem;
+  border-radius: 0.8rem;
+  border-collapse: collapse;
+}
+
+.table th {
+  background-color: var(--gray-600);
+}
+
+.table td {
+  background-color: var(--gray-800);
+}
+
+.table th,
+.table td {
+  border-bottom: 0.2rem solid var(--gray-700);
+  text-align: left;
+  padding: 1.6rem;
+}
+.thSort {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.thSort:hover {
+  filter: brigthness(80%);
+}
