@@ -1,5 +1,9 @@
+import { useTaskContext } from "@/context/TaskContext/task-context";
 import styles from "./style.module.css";
 
 export const TimerDisplay = () => {
-  return <div className={styles.container}>25:00</div>;
+  const { state } = useTaskContext();
+  return (
+    <div className={styles.container}>{state.formattedSecondsRemaing}</div>
+  );
 };

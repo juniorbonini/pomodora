@@ -13,6 +13,15 @@
   --primary-dark: #065f46;
   --primary-light: #4de7b7;
 
+  --bg-primary: var(--gray-900) 0%;
+  --bg-secondary: var(--gray-800) 50%;
+  --bg-secondary: var(--gray-700) 100%;
+  --bg-gradient: linear-gradient(
+    135deg,
+    var(--bg-primary),
+    var(--bg-secondary)
+  );
+
   --link-color: #10b981;
   --link-hover: #0b8a60;
 
@@ -35,4 +44,13 @@
 
   --link-color: #0b8a60;
   --link-hover: #10b981;
+
+  --bg-primary: var(--gray-900) 0%;
+  --bg-secondary: var(--gray-700) 50%;
+  --bg-secondary: var(--gray-600) 100%;
+  --bg-gradient: linear-gradient(
+    135deg,
+    var(--bg-primary),
+    var(--bg-secondary)
+  );
 }
