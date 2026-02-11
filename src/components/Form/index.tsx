@@ -8,10 +8,13 @@ import { TimerDisplay } from "@/components/TimerDisplay";
 import { useRef, type ChangeEvent } from "react";
 import type { Task } from "@/models/Task/task-model";
 import { useTaskContext } from "@/context/TaskContext/task-context";
+import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
 
 export const Form = () => {
-  const { dispatch } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const inputValue = useRef(null);
+  const nextCycle = getNextCycle(state.currentCycle);
+  console.log(nextCycle);
 
   function createTask(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,8 +28,6 @@ export const Form = () => {
       return;
     }
 
-    console.log(taskName);
-
     const newTask: Task = {
       id: Date.now().toString(),
       name: taskName,
@@ -36,7 +37,6 @@ export const Form = () => {
       duration: 1,
       type: "workTime",
     };
-
     const secondsRemaing = newTask.duration * 60;
 
     dispatch((prev) => {
@@ -46,6 +46,7 @@ export const Form = () => {
         secondsRemaing,
         formattedSecondsRemaing: "00:00",
         startDate: Date.now().toString(),
+        currentCycle: nextCycle,
         config: {
           ...prev.config,
         },

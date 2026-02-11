@@ -5,7 +5,7 @@ export type TaskState = {
   secondsRemaing: number;
   formattedSecondsRemaing: string;
   activeTask: Task | null;
-  currentyCycle: number; // número de 1 a 8
+  currentCycle: number; // número de 1 a 8
   config: {
     workTime: number;
     shortBreakTime: number;
