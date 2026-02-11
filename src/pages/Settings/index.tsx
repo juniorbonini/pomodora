@@ -1,7 +1,13 @@
+import { Container } from "@/components/Container";
+import { Heading } from "@/components/Heading";
+import { Main } from "@/components/Main";
+
 export const Settings = () => {
   return (
-    <div>
-      <h1>Settings Page</h1>
-    </div>
+    <Main>
+      <Container>
+        <Heading>Settings Page</Heading>
+      </Container>
+    </Main>
   );
 };
