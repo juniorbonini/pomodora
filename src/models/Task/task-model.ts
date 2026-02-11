@@ -4,7 +4,7 @@ export type Task = {
   id: string;
   name: string;
   duration: number;
-  status: string;
+  status?: string;
   startDate: number;
   completeDate: number | null; //quando o timer do pomodoro finaliza
   interruptDate: number | null; //quando o pomodoro cycle é interrompido

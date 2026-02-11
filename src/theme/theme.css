@@ -15,11 +15,12 @@
 
   --bg-primary: var(--gray-900) 0%;
   --bg-secondary: var(--gray-800) 50%;
-  --bg-secondary: var(--gray-700) 100%;
+  --bg-tertiary: var(--gray-700) 100%;
   --bg-gradient: linear-gradient(
     135deg,
     var(--bg-primary),
-    var(--bg-secondary)
+    var(--bg-secondary),
+    var(--bg-tertiary)
   );
 
   --link-color: #10b981;
@@ -47,10 +48,11 @@
 
   --bg-primary: var(--gray-900) 0%;
   --bg-secondary: var(--gray-700) 50%;
-  --bg-secondary: var(--gray-600) 100%;
+  --bg-tertiary: var(--gray-600) 100%;
   --bg-gradient: linear-gradient(
     135deg,
     var(--bg-primary),
-    var(--bg-secondary)
+    var(--bg-secondary),
+    var(--bg-tertiary)
   );
 }
