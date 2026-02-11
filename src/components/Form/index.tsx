@@ -1,4 +1,4 @@
-import { PlayCircle } from "lucide-react";
+import { PlayCircle, StopCircle } from "lucide-react";
 import { useRef, type ChangeEvent } from "react";
 
 import { Input } from "@/components/Input";
@@ -59,6 +59,16 @@ export const Form = () => {
       };
     });
   }
+  function handleInterruptTask() {
+    dispatch((prev) => {
+      return {
+        ...prev,
+        activeTask: null,
+        formattedSecondsRemaing: "00:00",
+        secondsRemaing: 0,
+      };
+    });
+  }
   return (
     <form className="form" onSubmit={createTask}>
       <div className="formRow">
@@ -83,9 +93,25 @@ export const Form = () => {
         </div>
       )}
 
-      <div className="formRow">
-        <Button icon={<PlayCircle />} />
-      </div>
+      {!state.activeTask && (
+        <Button
+          aria-label="Iniciar nova tarefa"
+          title="Iniciar nova tarefa"
+          type="submit"
+          key="botao-submit"
+          icon={<PlayCircle />}
+        />
+      )}
+      {!!state.activeTask && (
+        <Button
+          icon={<StopCircle />}
+          aria-label="Interromper tarefa"
+          title="Interromper tarefa"
+          key="botao-interrupt"
+          color="red"
+          onClick={handleInterruptTask}
+        />
+      )}
     </form>
   );
 };

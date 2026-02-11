@@ -19,6 +19,7 @@
 }
 
 .button svg {
+  color: var(--gray-900);
   width: 3.2rem;
   height: 3.2rem;
 }
