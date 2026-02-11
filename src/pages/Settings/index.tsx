@@ -21,26 +21,29 @@ export const Settings = () => {
         <form className="form">
           <div className="formRow">
             <Input
-              type="numeric"
+              type="number"
               label="Foco (min)"
               id="workTime"
               placeholder="0"
+              min={25}
             />
           </div>
           <div className="formRow">
             <Input
-              type="numeric"
+              type="number"
               label="Descanso curto (min)"
               id="shortBreakTime"
               placeholder="0"
+              min={5}
             />
           </div>
           <div className="formRow">
             <Input
-              type="numeric"
+              type="number"
               label="Descanso longo (min)"
               id="longBreakTime"
               placeholder="0"
+              min={15}
             />
           </div>
           <Button icon={<Save />} />

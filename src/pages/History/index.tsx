@@ -9,7 +9,7 @@ export const History = () => {
     <Main>
       <Container>
         <Heading>
-          Histórico{" "}
+          Histórico
           <button className={styles.button}>
             <Trash2 />
           </button>
