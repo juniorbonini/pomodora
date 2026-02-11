@@ -9,12 +9,14 @@ import { useRef, type ChangeEvent } from "react";
 import type { Task } from "@/models/Task/task-model";
 import { useTaskContext } from "@/context/TaskContext/task-context";
 import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
+import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
+import { formatSecondsToMinutes } from "@/utils/FormatSeconds/format-seconds-to-minutes";
 
 export const Form = () => {
   const { state, dispatch } = useTaskContext();
   const inputValue = useRef(null);
   const nextCycle = getNextCycle(state.currentCycle);
-  console.log(nextCycle);
+  const getCycleType = getNextCycleType(nextCycle);
 
   function createTask(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -34,8 +36,8 @@ export const Form = () => {
       startDate: Date.now(),
       completeDate: null,
       interruptDate: null,
-      duration: 1,
-      type: "workTime",
+      duration: state.config[getCycleType],
+      type: getCycleType,
     };
     const secondsRemaing = newTask.duration * 60;
 
@@ -44,7 +46,7 @@ export const Form = () => {
         ...prev,
         activeTask: newTask,
         secondsRemaing,
-        formattedSecondsRemaing: "00:00",
+        formattedSecondsRemaing: formatSecondsToMinutes(secondsRemaing),
         startDate: Date.now().toString(),
         currentCycle: nextCycle,
         config: {
