@@ -17,8 +17,6 @@ export const Menu = ({ ...props }: ButtonProps) => {
       const next = prev === "light" ? "dark" : "light";
       return next;
     });
-
-    console.log("O tema é:", theme);
   }
 
   const nextIcon = {
