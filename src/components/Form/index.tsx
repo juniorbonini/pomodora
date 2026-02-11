@@ -1,16 +1,16 @@
 import { PlayCircle } from "lucide-react";
+import { useRef, type ChangeEvent } from "react";
 
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { Cycles } from "@/components/Cycles";
 import { Container } from "@/components/Container";
-import { TimerDisplay } from "@/components/TimerDisplay";
-import { useRef, type ChangeEvent } from "react";
 import type { Task } from "@/models/Task/task-model";
-import { useTaskContext } from "@/context/TaskContext/task-context";
+import { TimerDisplay } from "@/components/TimerDisplay";
 import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
-import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
+import { useTaskContext } from "@/context/TaskContext/task-context";
 import { formatSecondsToMinutes } from "@/utils/FormatSeconds/format-seconds-to-minutes";
+import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
 
 export const Form = () => {
   const { state, dispatch } = useTaskContext();
@@ -71,16 +71,16 @@ export const Form = () => {
         />
       </div>
 
-      <div className="formRow">
-        <span>Foque durante 25 min em Estudar React.Js</span>
-      </div>
+      <div className="formRow">Foque por 25 min</div>
       <Container>
         <TimerDisplay />
       </Container>
 
-      <div className="formRow">
-        <Cycles />
-      </div>
+      {state.currentCycle > 0 && (
+        <div className="formRow">
+          <Cycles />
+        </div>
+      )}
 
       <div className="formRow">
         <Button icon={<PlayCircle />} />
