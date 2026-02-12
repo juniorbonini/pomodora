@@ -8,28 +8,36 @@ export const Tips = () => {
   const nextCycleType = getNextCycleType(nextCycle);
 
   const tipsForActiveTask = {
-    workTime: <span>Foque por {task.config.workTime} min</span>,
-    shortBreakTime: (
-      <span>
-        Descanse <b>{task.config.shortBreakTime} min</b>
-      </span>
-    ),
-    longBreakTime: <span>Descanso longo</span>,
-  };
-  const tipsForNoActiveTask = {
     workTime: (
       <span>
-        Próximo ciclo é de <b>{task.config.workTime} min</b>
+        <b>Foco</b>
       </span>
     ),
     shortBreakTime: (
       <span>
-        Próximo descanso é de <b>{task.config.shortBreakTime} min</b>
+        <b>descanso curto</b>
       </span>
     ),
     longBreakTime: (
       <span>
-        Próximo descanso será: <b>{task.config.longBreakTime} min</b>
+        <b>Descanso longo</b>
+      </span>
+    ),
+  };
+  const tipsForNoActiveTask = {
+    workTime: (
+      <span>
+        Próximo ciclo será: <b>{tipsForActiveTask.workTime}</b>
+      </span>
+    ),
+    shortBreakTime: (
+      <span>
+        Próximo ciclo será: <b>{tipsForActiveTask.shortBreakTime}</b>
+      </span>
+    ),
+    longBreakTime: (
+      <span>
+        Próximo ciclo será: <b>{tipsForActiveTask.longBreakTime}</b>
       </span>
     ),
   };

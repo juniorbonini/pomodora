@@ -3,5 +3,7 @@ import styles from "./style.module.css";
 
 export const TimerDisplay = () => {
   const { task } = useTaskContext();
-  return <div className={styles.container}>{task.formattedSecondsRemaing}</div>;
+  return (
+    <div className={styles.container}>{task.formattedSecondsRemaining}</div>
+  );
 };

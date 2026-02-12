@@ -11,14 +11,14 @@ export function taskReducer(
     case TaskActionTypes.START_TASK: {
       const newTask = action.payload;
       const nextCycle = getNextCycle(state.currentCycle);
-      const secondsRemaing = newTask.duration * 60;
+      const secondsRemaining = newTask.duration * 60;
 
       return {
         ...state,
         activeTask: newTask,
         currentCycle: nextCycle,
-        secondsRemaing,
-        formattedSecondsRemaing: formatSecondsToMinutes(secondsRemaing),
+        secondsRemaining,
+        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
         tasks: [...state.tasks, newTask],
       };
     }
@@ -26,8 +26,8 @@ export function taskReducer(
       return {
         ...state,
         activeTask: null,
-        secondsRemaing: 0,
-        formattedSecondsRemaing: "00:00",
+        secondsRemaining: 0,
+        formattedSecondsRemaining: "00:00",
         tasks: state.tasks.map((task) => {
           if (state.activeTask && state.activeTask.id === task.id) {
             return {
@@ -43,8 +43,8 @@ export function taskReducer(
       return {
         ...state,
         activeTask: null,
-        secondsRemaing: 0,
-        formattedSecondsRemaing: "00:00",
+        secondsRemaining: 0,
+        formattedSecondsRemaining: "00:00",
         tasks: state.tasks.map((task) => {
           if (state.activeTask && state.activeTask.id === task.id) {
             return {
@@ -56,17 +56,18 @@ export function taskReducer(
         }),
       };
     }
+
+    case TaskActionTypes.RESET_TASK: {
+      return state;
+    }
     case TaskActionTypes.COUNT_DOWN: {
       return {
         ...state,
-        secondsRemaing: action.paylod.secondsRemaing,
-        formattedSecondsRemaing: formatSecondsToMinutes(
-          action.paylod.secondsRemaing,
+        secondsRemaining: action.payload.secondsRemaining,
+        formattedSecondsRemaining: formatSecondsToMinutes(
+          action.payload.secondsRemaining,
         ),
       };
-    }
-    case TaskActionTypes.RESET_TASK: {
-      return state;
     }
   }
   return state;

@@ -15,7 +15,7 @@ export type TaskActionWithPayload =
     }
   | {
       type: TaskActionTypes.COUNT_DOWN;
-      paylod: { secondsRemaing: number };
+      payload: { secondsRemaining: string };
     };
 
 export type TaskActionWithoutPayload =

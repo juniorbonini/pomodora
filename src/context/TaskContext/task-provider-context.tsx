@@ -13,19 +13,20 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
 
   worker.onmessage((e) => {
     const countDownSeconds = e.data;
-
+    console.log(typeof countDownSeconds);
     if (countDownSeconds <= 0) {
       setTask({ type: TaskActionTypes.COMPLETE_TASK });
       worker.terminate();
     } else {
       setTask({
         type: TaskActionTypes.COUNT_DOWN,
-        paylod: { secondsRemaing: countDownSeconds },
+        payload: { secondsRemaining: countDownSeconds },
       });
     }
   });
 
   useEffect(() => {
+    console.log(task);
     if (!task.activeTask) {
       worker.terminate();
     }
