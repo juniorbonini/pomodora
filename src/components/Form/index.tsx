@@ -11,6 +11,7 @@ import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
 import { useTaskContext } from "@/context/TaskContext/task-context";
 import { TaskActionTypes } from "@/context/TaskReducer/task-aciton";
 import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
+import { Tips } from "../Tips";
 
 export const Form = () => {
   const { task, setTask } = useTaskContext();
@@ -57,7 +58,9 @@ export const Form = () => {
         />
       </div>
 
-      <div className="formRow">Foque por 25 min</div>
+      <div className="formRow">
+        <Tips />
+      </div>
       <Container>
         <TimerDisplay />
       </Container>
