@@ -49,9 +49,7 @@ export const Form = () => {
         formattedSecondsRemaing: formatSecondsToMinutes(secondsRemaing),
         startDate: Date.now().toString(),
         currentCycle: nextCycle,
-        config: {
-          ...prev.config,
-        },
+        config: { ...prev.config },
         tasks: [...prev.tasks, newTask],
       };
       console.log(newTask);
