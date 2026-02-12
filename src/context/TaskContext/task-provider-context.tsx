@@ -5,16 +5,16 @@ import { taskInitialState } from "@/models/Task/task-initial-state";
 import type { TaskContextProviderProps } from "@/models/Task/task-context";
 
 export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
-  const [state, dispatch] = useState(taskInitialState);
+  const [task, setTask] = useState(taskInitialState);
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
+    console.log(task);
+  }, [task]);
   return (
     <TaskContext.Provider
       value={{
-        state,
-        dispatch,
+        task,
+        setTask,
       }}
     >
       {children}

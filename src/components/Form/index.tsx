@@ -9,13 +9,13 @@ import type { Task } from "@/models/Task/task-model";
 import { TimerDisplay } from "@/components/TimerDisplay";
 import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
 import { useTaskContext } from "@/context/TaskContext/task-context";
-import { formatSecondsToMinutes } from "@/utils/FormatSeconds/format-seconds-to-minutes";
 import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
+import { formatSecondsToMinutes } from "@/utils/FormatSeconds/format-seconds-to-minutes";
 
 export const Form = () => {
-  const { state, dispatch } = useTaskContext();
+  const { task, setTask } = useTaskContext();
   const inputValue = useRef(null);
-  const nextCycle = getNextCycle(state.currentCycle);
+  const nextCycle = getNextCycle(task.currentCycle);
   const getCycleType = getNextCycleType(nextCycle);
 
   function createTask(e: ChangeEvent<HTMLFormElement>) {
@@ -36,12 +36,12 @@ export const Form = () => {
       startDate: Date.now(),
       completeDate: null,
       interruptDate: null,
-      duration: state.config[getCycleType],
+      duration: task.config[getCycleType],
       type: getCycleType,
     };
     const secondsRemaing = newTask.duration * 60;
 
-    dispatch((prev) => {
+    setTask((prev) => {
       return {
         ...prev,
         activeTask: newTask,
@@ -52,20 +52,25 @@ export const Form = () => {
         config: {
           ...prev.config,
         },
-        tasks: {
-          ...prev.tasks,
-          newTask,
-        },
+        tasks: [...prev.tasks, newTask],
       };
+      console.log(newTask);
     });
   }
+
   function handleInterruptTask() {
-    dispatch((prev) => {
+    setTask((prev) => {
       return {
         ...prev,
         activeTask: null,
         formattedSecondsRemaing: "00:00",
         secondsRemaing: 0,
+        tasks: prev.tasks.map((task) => {
+          if (prev.activeTask && prev.activeTask.id === task.id) {
+            return { ...task, interruptDate: Date.now() };
+          }
+          return task;
+        }),
       };
     });
   }
@@ -78,7 +83,7 @@ export const Form = () => {
           id="tarefa"
           placeholder="Digite o nome da tarefa"
           ref={inputValue}
-          disabled={!!state.activeTask}
+          disabled={!!task.activeTask}
         />
       </div>
 
@@ -87,13 +92,13 @@ export const Form = () => {
         <TimerDisplay />
       </Container>
 
-      {state.currentCycle > 0 && (
+      {task.currentCycle > 0 && (
         <div className="formRow">
           <Cycles />
         </div>
       )}
 
-      {!state.activeTask && (
+      {!task.activeTask && (
         <Button
           aria-label="Iniciar nova tarefa"
           title="Iniciar nova tarefa"
@@ -102,7 +107,7 @@ export const Form = () => {
           icon={<PlayCircle />}
         />
       )}
-      {!!state.activeTask && (
+      {!!task.activeTask && (
         <Button
           icon={<StopCircle />}
           aria-label="Interromper tarefa"

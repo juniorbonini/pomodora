@@ -3,8 +3,8 @@ import { taskInitialState } from "@/models/Task/task-initial-state";
 import { createContext, useContext } from "react";
 
 const initialTaskContextValue = {
-  state: taskInitialState,
-  dispatch: () => {},
+  task: taskInitialState,
+  setTask: () => {},
 };
 
 export const TaskContext = createContext<TaskContextProps>(
