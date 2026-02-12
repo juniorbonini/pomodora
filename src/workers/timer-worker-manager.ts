@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { TaskState } from "@/models/Task/task-state";
+
 let instance: TimerWorkerManager | null = null;
 
 export class TimerWorkerManager {
   private worker: Worker;
 
   private constructor() {
-    this.worker = new Worker(
-      new URL("../workers/timer-worker.ts", import.meta.url),
-    );
+    this.worker = new Worker(new URL("./timer-worker.js", import.meta.url));
   }
 
   static getInstance() {
@@ -18,7 +17,7 @@ export class TimerWorkerManager {
     return instance;
   }
 
-  postMessage(message: any) {
+  postMessage(message: TaskState) {
     this.worker.postMessage(message);
   }
 
