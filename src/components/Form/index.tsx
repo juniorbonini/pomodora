@@ -1,5 +1,5 @@
-import { PlayCircle, StopCircle } from "lucide-react";
 import { useRef, type ChangeEvent } from "react";
+import { PlayCircle, StopCircle } from "lucide-react";
 
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
@@ -9,8 +9,8 @@ import type { Task } from "@/models/Task/task-model";
 import { TimerDisplay } from "@/components/TimerDisplay";
 import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
 import { useTaskContext } from "@/context/TaskContext/task-context";
+import { TaskActionTypes } from "@/context/TaskReducer/task-aciton";
 import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
-import { formatSecondsToMinutes } from "@/utils/FormatSeconds/format-seconds-to-minutes";
 
 export const Form = () => {
   const { task, setTask } = useTaskContext();
@@ -24,7 +24,6 @@ export const Form = () => {
     if (!inputValue.current) return;
 
     const taskName = inputValue.current.value;
-
     if (!taskName) {
       alert("Digite o nome da tarefa!");
       return;
@@ -39,38 +38,11 @@ export const Form = () => {
       duration: task.config[getCycleType],
       type: getCycleType,
     };
-    const secondsRemaing = newTask.duration * 60;
-
-    setTask((prev) => {
-      return {
-        ...prev,
-        activeTask: newTask,
-        secondsRemaing,
-        formattedSecondsRemaing: formatSecondsToMinutes(secondsRemaing),
-        startDate: Date.now().toString(),
-        currentCycle: nextCycle,
-        config: { ...prev.config },
-        tasks: [...prev.tasks, newTask],
-      };
-      console.log(newTask);
-    });
+    setTask({ type: TaskActionTypes.START_TASK, payload: newTask });
   }
 
   function handleInterruptTask() {
-    setTask((prev) => {
-      return {
-        ...prev,
-        activeTask: null,
-        formattedSecondsRemaing: "00:00",
-        secondsRemaing: 0,
-        tasks: prev.tasks.map((task) => {
-          if (prev.activeTask && prev.activeTask.id === task.id) {
-            return { ...task, interruptDate: Date.now() };
-          }
-          return task;
-        }),
-      };
-    });
+    setTask({ type: TaskActionTypes.INTERRUPT_TASK });
   }
   return (
     <form className="form" onSubmit={createTask}>
