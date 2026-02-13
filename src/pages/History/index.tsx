@@ -4,6 +4,7 @@ import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
 import { useTaskContext } from "@/context/TaskContext/task-context";
 import { TaskActionTypes } from "@/context/TaskReducer/task-aciton";
+import { showNotification } from "@/notifications/show-notification";
 import { Main } from "@/Templates/Main";
 import type { SortTaskOptions } from "@/types/SortTask/sort-task";
 import { formatDate } from "@/utils/FormatDate/format-date";
@@ -15,6 +16,7 @@ import { useEffect, useState } from "react";
 export const History = () => {
   const { state, dispatch } = useTaskContext();
   const hasTask = state.tasks.length > 0;
+  const [confirmClearHistory, setConfirmClearHistory] = useState(false);
   const [sortTaskOptions, setSortTaskOptions] = useState<SortTaskOptions>(
     () => {
       return {
@@ -35,6 +37,20 @@ export const History = () => {
       }),
     }));
   }, [state.tasks]);
+  useEffect(() => {
+    if (!confirmClearHistory) return;
+    setConfirmClearHistory(false);
+
+    dispatch({
+      type: TaskActionTypes.RESET_TASK,
+    });
+  }, [confirmClearHistory, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      showNotification.dimiss();
+    };
+  }, []);
 
   function handleSortTaskOptions({ field }: Pick<SortTaskOptions, "field">) {
     const newDirection = sortTaskOptions.direction === "desc" ? "asc" : "desc";
@@ -51,9 +67,10 @@ export const History = () => {
   }
 
   function handleResetHisory() {
-    if (!confirm("Tem certeza?")) return;
-
-    dispatch({ type: TaskActionTypes.RESET_TASK });
+    showNotification.dimiss();
+    showNotification.confirm("Tem certeza?", (confirmation) => {
+      setConfirmClearHistory(confirmation);
+    });
   }
 
   return (
