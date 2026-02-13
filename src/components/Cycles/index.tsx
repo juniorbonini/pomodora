@@ -4,8 +4,8 @@ import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
 import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
 
 export const Cycles = () => {
-  const { task } = useTaskContext();
-  const cycleStep = Array.from({ length: task.currentCycle });
+  const { state } = useTaskContext();
+  const cycleStep = Array.from({ length: state.currentCycle });
   const cycleTypeMap = {
     workTime: "foco",
     shortBreakTime: "descanso curto",

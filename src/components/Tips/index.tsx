@@ -3,8 +3,8 @@ import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
 import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
 
 export const Tips = () => {
-  const { task } = useTaskContext();
-  const nextCycle = getNextCycle(task.currentCycle);
+  const { state } = useTaskContext();
+  const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
 
   const tipsForActiveTask = {
@@ -43,8 +43,8 @@ export const Tips = () => {
   };
   return (
     <>
-      {!!task.activeTask && tipsForActiveTask[task.activeTask.type]}
-      {!task.activeTask && tipsForNoActiveTask[nextCycleType]}
+      {!!state.activeTask && tipsForActiveTask[state.activeTask.type]}
+      {!state.activeTask && tipsForNoActiveTask[nextCycleType]}
     </>
   );
 };

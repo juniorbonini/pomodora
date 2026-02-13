@@ -13,7 +13,7 @@ import type { TaskState } from "@/models/Task/task-state";
 export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
   const worker = TimerWorkerManager.getInstance();
   const playBeepAudio = useRef<ReturnType<typeof loadBeep> | null>(null);
-  const [task, setTask] = useReducer(taskReducer, taskInitialState, () => {
+  const [state, dispatch] = useReducer(taskReducer, taskInitialState, () => {
     const storage = localStorage.getItem("task");
 
     if (storage === null) return taskInitialState;
@@ -36,10 +36,10 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
         playBeepAudio.current();
         playBeepAudio.current = null;
       }
-      setTask({ type: TaskActionTypes.COMPLETE_TASK });
+      dispatch({ type: TaskActionTypes.COMPLETE_TASK });
       worker.terminate();
     } else {
-      setTask({
+      dispatch({
         type: TaskActionTypes.COUNT_DOWN,
         payload: { secondsRemaining: countDownSeconds },
       });
@@ -47,28 +47,28 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
   });
 
   useEffect(() => {
-    localStorage.setItem("task", JSON.stringify(task));
-    if (!task.activeTask) {
+    localStorage.setItem("task", JSON.stringify(state));
+    if (!state.activeTask) {
       worker.terminate();
     }
 
-    document.title = `${task.formattedSecondsRemaining} - Chronos Pomodora`;
+    document.title = `${state.formattedSecondsRemaining} - Chronos Pomodora`;
 
-    worker.postMessage(task);
-  }, [task, worker]);
+    worker.postMessage(state);
+  }, [state, worker]);
 
   useEffect(() => {
-    if (task.activeTask && playBeepAudio.current === null) {
+    if (state.activeTask && playBeepAudio.current === null) {
       playBeepAudio.current = loadBeep();
     } else {
       playBeepAudio.current = null;
     }
-  }, [task.activeTask]);
+  }, [state.activeTask]);
   return (
     <TaskContext.Provider
       value={{
-        task,
-        setTask,
+        state,
+        dispatch,
       }}
     >
       {children}

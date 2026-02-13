@@ -1,10 +1,14 @@
 import styles from "./style.module.css";
 import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
+import { useTaskContext } from "@/context/TaskContext/task-context";
 import { Main } from "@/Templates/Main";
+import { formatDate } from "@/utils/FormatDate/format-date";
+import { getTaskStatus } from "@/utils/TaskStatus/task-status";
 import { Trash2 } from "lucide-react";
 
 export const History = () => {
+  const { state } = useTaskContext();
   return (
     <Main>
       <Container>
@@ -30,34 +34,22 @@ export const History = () => {
               </thead>
 
               <tbody>
-                <tr>
-                  <td>Estudar Next.Js</td>
-                  <td>25 minutos</td>
-                  <td>09/01/2026</td>
-                  <td>Concluído</td>
-                  <td>Foco</td>
-                </tr>
-                <tr>
-                  <td>Descanso</td>
-                  <td>5 minutos</td>
-                  <td>09/01/2026</td>
-                  <td>Concluído</td>
-                  <td>Descanso curto</td>
-                </tr>
-                <tr>
-                  <td>Estudar React.Js</td>
-                  <td>25 minutos</td>
-                  <td>09/01/2026</td>
-                  <td>Concluído</td>
-                  <td>Foco</td>
-                </tr>
-                <tr>
-                  <td>Descanso</td>
-                  <td>5 minutos</td>
-                  <td>09/01/2026</td>
-                  <td>Em andamento</td>
-                  <td>Descanso curto</td>
-                </tr>
+                {state.tasks.map((task) => {
+                  const taskTypeHistory = {
+                    workTime: "Foco",
+                    shortBreakTime: "Descanso curto",
+                    longBreakTime: "Descando longo",
+                  };
+                  return (
+                    <tr key={task.id}>
+                      <td>{task.name}</td>
+                      <td>{task.duration}</td>
+                      <td>{formatDate(task.startDate)}</td>
+                      <td>{getTaskStatus(task, state.activeTask)}</td>
+                      <td>{taskTypeHistory[task.type]}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

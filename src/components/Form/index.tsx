@@ -1,6 +1,7 @@
 import { useRef, type ChangeEvent } from "react";
 import { PlayCircle, StopCircle } from "lucide-react";
 
+import { Tips } from "@/components/Tips";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { Cycles } from "@/components/Cycles";
@@ -8,18 +9,17 @@ import { Container } from "@/components/Container";
 import type { Task } from "@/models/Task/task-model";
 import { TimerDisplay } from "@/components/TimerDisplay";
 import { getNextCycle } from "@/utils/NextCycle/get-next-cycle";
-import { useTaskContext } from "@/context/TaskContext/task-context";
 import { TaskActionTypes } from "@/context/TaskReducer/task-aciton";
-import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
-import { Tips } from "../Tips";
+import { useTaskContext } from "@/context/TaskContext/task-context";
 import { showNotification } from "@/notifications/show-notification";
+import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
 
 export const Form = () => {
-  const { task, setTask } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const inputValue = useRef(null);
-  const nextCycle = getNextCycle(task.currentCycle);
+  const nextCycle = getNextCycle(state.currentCycle);
   const getCycleType = getNextCycleType(nextCycle);
-  const lastTaskName = task.tasks[task.tasks.length - 1]?.name || "";
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || "";
 
   function createTask(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -39,15 +39,15 @@ export const Form = () => {
       startDate: Date.now(),
       completeDate: null,
       interruptDate: null,
-      duration: task.config[getCycleType],
+      duration: state.config[getCycleType],
       type: getCycleType,
     };
-    setTask({ type: TaskActionTypes.START_TASK, payload: newTask });
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
     showNotification.succes("Tarefa iniciada.");
   }
 
   function handleInterruptTask() {
-    setTask({ type: TaskActionTypes.INTERRUPT_TASK });
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
     showNotification.error("Tarefa interrompida.");
   }
   return (
@@ -59,7 +59,7 @@ export const Form = () => {
           id="tarefa"
           placeholder="Digite o nome da tarefa"
           ref={inputValue}
-          disabled={!!task.activeTask}
+          disabled={!!state.activeTask}
           defaultValue={lastTaskName}
         />
       </div>
@@ -72,13 +72,13 @@ export const Form = () => {
         <Tips />
       </div>
 
-      {task.currentCycle > 0 && (
+      {state.currentCycle > 0 && (
         <div className="formRow">
           <Cycles />
         </div>
       )}
 
-      {!task.activeTask && (
+      {!state.activeTask && (
         <Button
           aria-label="Iniciar nova tarefa"
           title="Iniciar nova tarefa"
@@ -87,7 +87,7 @@ export const Form = () => {
           icon={<PlayCircle />}
         />
       )}
-      {!!task.activeTask && (
+      {!!state.activeTask && (
         <Button
           icon={<StopCircle />}
           aria-label="Interromper tarefa"
