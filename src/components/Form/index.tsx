@@ -12,6 +12,7 @@ import { useTaskContext } from "@/context/TaskContext/task-context";
 import { TaskActionTypes } from "@/context/TaskReducer/task-aciton";
 import { getNextCycleType } from "@/utils/NextCycle/get-next-cycle-type";
 import { Tips } from "../Tips";
+import { showNotification } from "@/notifications/show-notification";
 
 export const Form = () => {
   const { task, setTask } = useTaskContext();
@@ -21,12 +22,13 @@ export const Form = () => {
 
   function createTask(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
+    showNotification.dimiss();
 
     if (!inputValue.current) return;
 
     const taskName = inputValue.current.value;
     if (!taskName) {
-      alert("Digite o nome da tarefa!");
+      showNotification.warn("Insira o nome da tarefa.");
       return;
     }
 
@@ -40,10 +42,12 @@ export const Form = () => {
       type: getCycleType,
     };
     setTask({ type: TaskActionTypes.START_TASK, payload: newTask });
+    showNotification.succes("Tarefa iniciada.");
   }
 
   function handleInterruptTask() {
     setTask({ type: TaskActionTypes.INTERRUPT_TASK });
+    showNotification.error("Tarefa interrompida.");
   }
   return (
     <form className="form" onSubmit={createTask}>
