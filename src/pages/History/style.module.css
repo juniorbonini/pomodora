@@ -18,7 +18,7 @@
   filter: brightness(70%);
 }
 .button svg {
-  color: var(--gray-100);
+  color: var(--gray-900);
 }
 
 .table {
@@ -47,6 +47,7 @@
   border-bottom: 0.2rem solid var(--gray-700);
   text-align: left;
   padding: 1.6rem;
+  color: var(--gray-300);
 }
 .thSort {
   cursor: pointer;

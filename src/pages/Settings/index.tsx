@@ -2,7 +2,7 @@ import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
 import { Input } from "@/components/Input";
-import { Main } from "@/components/Main";
+import { Main } from "@/Templates/Main";
 import { Save } from "lucide-react";
 
 export const Settings = () => {
@@ -24,7 +24,7 @@ export const Settings = () => {
               type="number"
               label="Foco (min)"
               id="workTime"
-              placeholder="0"
+              placeholder="25"
               min={25}
             />
           </div>
@@ -33,7 +33,7 @@ export const Settings = () => {
               type="number"
               label="Descanso curto (min)"
               id="shortBreakTime"
-              placeholder="0"
+              placeholder="5"
               min={5}
             />
           </div>
@@ -42,7 +42,7 @@ export const Settings = () => {
               type="number"
               label="Descanso longo (min)"
               id="longBreakTime"
-              placeholder="0"
+              placeholder="15"
               min={15}
             />
           </div>

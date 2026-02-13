@@ -1,7 +1,7 @@
 import { Container } from "@/components/Container";
 import { GenericHtml } from "@/components/GenericHTML";
 import { Heading } from "@/components/Heading";
-import { Main } from "@/components/Main";
+import { Main } from "@/Templates/Main";
 
 export const NotFound = () => {
   return (

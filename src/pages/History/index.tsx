@@ -1,7 +1,7 @@
 import styles from "./style.module.css";
 import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
-import { Main } from "@/components/Main";
+import { Main } from "@/Templates/Main";
 import { Trash2 } from "lucide-react";
 
 export const History = () => {
@@ -31,7 +31,7 @@ export const History = () => {
 
               <tbody>
                 <tr>
-                  <td>Estudar React.Js</td>
+                  <td>Estudar Next.Js</td>
                   <td>25 minutos</td>
                   <td>09/01/2026</td>
                   <td>Concluído</td>
