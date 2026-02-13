@@ -8,11 +8,25 @@ import { taskReducer } from "@/context/TaskReducer/task-reducer";
 import { TimerWorkerManager } from "@/workers/timer-worker-manager";
 import { TaskActionTypes } from "../TaskReducer/task-aciton";
 import { loadBeep } from "@/utils/Audios/load-beep";
+import type { TaskState } from "@/models/Task/task-state";
 
 export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
-  const [task, setTask] = useReducer(taskReducer, taskInitialState);
   const worker = TimerWorkerManager.getInstance();
   const playBeepAudio = useRef<ReturnType<typeof loadBeep> | null>(null);
+  const [task, setTask] = useReducer(taskReducer, taskInitialState, () => {
+    const storage = localStorage.getItem("task");
+
+    if (storage === null) return taskInitialState;
+
+    const parsedStorage = JSON.parse(storage) as TaskState;
+
+    return {
+      ...parsedStorage,
+      activeTask: null,
+      secondsRemaining: 0,
+      formattedSecondsRemaining: "00:00",
+    };
+  });
 
   worker.onmessage((e) => {
     const countDownSeconds = e.data;
@@ -33,10 +47,12 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
   });
 
   useEffect(() => {
-    console.log(task);
+    localStorage.setItem("task", JSON.stringify(task));
     if (!task.activeTask) {
       worker.terminate();
     }
+
+    document.title = `${task.formattedSecondsRemaining} - Chronos Pomodora`;
 
     worker.postMessage(task);
   }, [task, worker]);

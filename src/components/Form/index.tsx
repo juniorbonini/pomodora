@@ -19,6 +19,7 @@ export const Form = () => {
   const inputValue = useRef(null);
   const nextCycle = getNextCycle(task.currentCycle);
   const getCycleType = getNextCycleType(nextCycle);
+  const lastTaskName = task.tasks[task.tasks.length - 1]?.name || "";
 
   function createTask(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -59,15 +60,17 @@ export const Form = () => {
           placeholder="Digite o nome da tarefa"
           ref={inputValue}
           disabled={!!task.activeTask}
+          defaultValue={lastTaskName}
         />
       </div>
+
+      <Container>
+        <TimerDisplay />
+      </Container>
 
       <div className="formRow">
         <Tips />
       </div>
-      <Container>
-        <TimerDisplay />
-      </Container>
 
       {task.currentCycle > 0 && (
         <div className="formRow">
